@@ -39,5 +39,7 @@ var app = http.createServer(function(request,response){
       </html>
       `;
     response.end(template);
+  });
+
 });
 app.listen(3000); //3000은 포트넘버.
