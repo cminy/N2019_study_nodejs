@@ -17,7 +17,7 @@ var app = http.createServer(function(request,response){
     }
 */
     if(pathname === '/'){
-      fs.readFile(`data/${title}`, 'utf-8', function(err, description){
+      fs.readFile(`data/${title}`, 'utf8', function(err, description){
         var template = `
         <!doctype html>
         <html>
