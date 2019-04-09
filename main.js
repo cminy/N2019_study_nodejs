@@ -5,21 +5,13 @@ var url = require('url');
 var app = http.createServer(function(request,response){
     var urlm = request.url;
     var queryData = url.parse(urlm,true).query;
-//    console.log(queryData.id);
     var pathname = url.parse(urlm, true).pathname;
     var title = queryData.id;
-/*
-    if(urlm == '/'){
-      title = 'welcome to my home';
-    }
-    if(urlm == '/favicon.ico'){
-      response.writeHead(404);
-    }
-*/
     if(pathname === '/'){
-      if(title === undefined){
+      //welcome 페이지 설정
+      if(queryData.id === undefined){
         fs.readFile(`data/${title}`,'utf8',function(err,description){
-          var title = 'Welcome';
+          title = 'Welcome';
           description = 'Hello, Node.js';
           var template =`
           <!doctype html>
