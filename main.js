@@ -20,7 +20,7 @@ var app = http.createServer(function(request,response){
       if(title === undefined){
         fs.readFile(`data/${title}`,'utf8',function(err,description){
           var title = 'Welcome';
-          var description = 'Hello, Node.js';
+          description = 'Hello, Node.js';
           var template =`
           <!doctype html>
           <html>
