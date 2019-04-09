@@ -17,34 +17,65 @@ var app = http.createServer(function(request,response){
     }
 */
     if(pathname === '/'){
-      fs.readFile(`data/${title}`, 'utf8', function(err, description){
-        var template = `
-        <!doctype html>
-        <html>
-        <head>
-          <title>WEB1 - ${title}</title>
-          <meta charset="utf-8">
-        </head>
-        <body>
-          <h1><a href="/">WEB</a></h1>
-          <ol>
-            <li><a href="/?id=html">HTML</a></li>
-            <li><a href="/?id=css">CSS</a></li>
-            <li><a href="/?id=javascript">JavaScript</a></li>
-          </ol>
-          <h2>${title}</h2>
-          <p style="margin-top:45px;"">
-            ${description}
-          </p>
-        </body>
-        </html>
-        `;
-        response.writeHead(200);
-        response.end(template);
-      });
+      if(title === undefined){
+        fs.readFile(`data/${title}`,'utf8',function(err,description){
+          var title = 'Welcome';
+          var description = 'Hello, Node.js';
+          var template =`
+          <!doctype html>
+          <html>
+          <head>
+            <title>WEB1 - ${title}</title>
+            <meta charset="utf-8">
+          </head>
+          <body>
+            <h1><a href="/">WEB</a></h1>
+            <ol>
+              <li><a href="/?id=html">HTML</a></li>
+              <li><a href="/?id=css">CSS</a></li>
+              <li><a href="/?id=javascript">JavaScript</a></li>
+            </ol>
+            <h2>${title}</h2>
+            <p style="margin-top:45px;"">
+              ${description}
+            </p>
+          </body>
+          </html>
+          `;
+          response.writeHead(200);
+          response.end(template);
+        });
+      } else {
+        fs.readFile(`data/${title}`, 'utf8', function(err, description){
+          var template = `
+          <!doctype html>
+          <html>
+          <head>
+            <title>WEB1 - ${title}</title>
+            <meta charset="utf-8">
+          </head>
+          <body>
+            <h1><a href="/">WEB</a></h1>
+            <ol>
+              <li><a href="/?id=html">HTML</a></li>
+              <li><a href="/?id=css">CSS</a></li>
+              <li><a href="/?id=javascript">JavaScript</a></li>
+            </ol>
+            <h2>${title}</h2>
+            <p style="margin-top:45px;"">
+              ${description}
+            </p>
+          </body>
+          </html>
+          `;
+          response.writeHead(200);
+          response.end(template);
+        });
+      }
     } else {
       response.writeHead(404);
       response.end('Not Found');
+      }
     }
-  });
+  );
 app.listen(3000); //3000은 포트넘버.
