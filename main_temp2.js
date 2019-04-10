@@ -38,7 +38,11 @@ var app = http.createServer(function(request,response){
     var queryData = url.parse(urlm,true).query;
     var pathname = url.parse(urlm, true).pathname;
     var title = queryData.id;
-    var controlmodule = `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`;
+    var controlmodule = {
+      'create' : '<a href="/create">create</a>',
+      'update' : `<a href="/update?id=${title}">update</a>`,
+      'delete' : `<form action="/delete_process" method="post"> <input type="hidden" name="titled" value="${title}"> <input type="submit" value="delete"> </form>`
+    }
 
     fs.readdir('data', function(err,filelist){
       var files = templateList(filelist);
@@ -50,14 +54,12 @@ var app = http.createServer(function(request,response){
           if(title === undefined){ //welcome 페이지 설정
             title = 'Welcome';
             description = 'Hello, Node.js';
-            controlmodule = '<a href="/create">create</a>';
-            template = templateHtml(title,files,controlmodule,
+            template = templateHtml(title,files,controlmodule.create,
               `<h2>${title}</h2><p style="margin-top:45px;">${description}</p>`,
               );
           } else { //list 메뉴 선택했을때 create와update&delete버튼생성
-            var deletemodule = `<form action="/delete_process" method="post" onsubmit="삭제되었습니다"> <input type="hidden" name="titled" value="${title}"> <input type="submit" value="delete"> </form>`;
-            controlmodule = controlmodule + deletemodule ;
-            template = templateHtml(title,files,controlmodule,
+            var controlall = controlmodule.create+controlmodule.delete+controlmodule.update ;
+            template = templateHtml(title,files,controlall,
             `<h2>${title}</h2><p style="marin-top:45px;">${description}</p>`);
           }
             response.writeHead(200);
@@ -95,7 +97,7 @@ var app = http.createServer(function(request,response){
             });
           });
         } else if(pathname === '/update'){ //update버튼 눌렀을때
-            template = templateHtml(title,files,controlmodule,
+            template = templateHtml(title,files,'',
             `
             <form action="/update_process" method="post">
               <input type="hidden" name="titled" value="${title}">
