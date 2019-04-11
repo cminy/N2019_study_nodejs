@@ -22,12 +22,12 @@ var app = http.createServer(function(request,response){
         `;
       }
     };
+    var filteredId = path.parse(queryData.id).base;
 
 
     fs.readdir('data', function(err,filelist){
       var files = template.List(filelist);
       var content = template.Html(title,files,'','');
-      var filteredId = path.parse(queryData.id).base;
 
       fs.readFile(`data/${filteredId}`,'utf8',function(err,description){
         if(pathname === '/'){ //home으로 갔을 때
