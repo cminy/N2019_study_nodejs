@@ -3,7 +3,17 @@ var fs = require('fs');
 var finder = require('./lib/findfile.js'); //findfile template
 // var csvParser = require('csv-parse');
 
-var csvFile = finder.GetFolderList('190411');
+finder.GetFolderList('190411');
+// for(i=0; i < )
+
+// var i = 0;
+// console.log(csvFolders[i]);
+//
+// while (csvFolders[i] != '.DS_Store' && i < csvFolders.length){
+//   finder.GetFileList('190411','.csv',csvFolders);
+//   i ++ ;
+// }
+
 // fs.readFile(findcsv,'utf8', function(err, csvData){
 //   if (err){
 //     console.log(err);
